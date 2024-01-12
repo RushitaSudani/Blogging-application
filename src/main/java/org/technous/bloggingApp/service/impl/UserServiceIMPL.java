@@ -67,7 +67,7 @@ public class UserServiceIMPL implements UserService {
     public List<UserDTO> getAllUser() {
        List<User> users= userRepository.findAll();
        List<UserDTO> u1= users.stream().map(user -> this.userToDto(user)).collect(Collectors.toList());
-        return u1;
+       return u1;
     }
     @Override
     public void deleteUser(int userId) {

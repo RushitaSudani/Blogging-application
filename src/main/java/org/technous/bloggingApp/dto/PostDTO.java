@@ -9,7 +9,8 @@ import lombok.Setter;
 import org.technous.bloggingApp.models.Categories;
 import org.technous.bloggingApp.models.User;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 @Getter
 @Setter

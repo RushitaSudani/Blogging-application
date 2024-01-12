@@ -34,7 +34,7 @@ public class PostServiceIMPL implements PostService {
         Categories c1=categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("resource not found","categogyId",categoryId));
         Post post=this.modelMapper.map(postDTO,Post.class);
         post.setImageName("default.png");
-      //  post.setAddedDate(new Date());
+       // post.setAddedDate(new Date());
         post.setUser(u1);
         post.setCategories(c1);
 
@@ -43,10 +43,15 @@ public class PostServiceIMPL implements PostService {
     }
 
     @Override
-    public Post updatePost(PostDTO postDTO, int postId) {
-
-
-        return null;
+    public PostDTO updatePost(PostDTO postDTO, int postId) {
+        Post post=postRepository.findById(postId).orElseThrow(()->new ResourceNotFoundException("post not found","postId",postId));
+        post.setContent(postDTO.getContent());
+        post.setTitle(postDTO.getTitle());
+        post.setImageName(postDTO.getImageName());
+        post.setAddedDate((Date) postDTO.getAddedDate());
+       // post.setCategories(postDTO.getCategories());
+        Post postDTO1=postRepository.save(post);
+        return this.modelMapper.map(postDTO1,PostDTO.class);
     }
 
     @Override

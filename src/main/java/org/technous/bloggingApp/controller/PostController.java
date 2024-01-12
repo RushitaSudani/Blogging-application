@@ -63,4 +63,10 @@ public class PostController {
         return new ApiResponse("Post Deleted",true);
     }
 
+    @PutMapping("updatepost/{postId}")
+    public ResponseEntity<PostDTO> updatePost(@RequestBody PostDTO postDTO,@PathVariable("postId") int postId)
+    {
+        PostDTO p1=postService.updatePost(postDTO,postId);
+        return new ResponseEntity<PostDTO>(p1,HttpStatus.OK);
+    }
 }

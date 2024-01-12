@@ -61,4 +61,5 @@ public class UserController {
        // return new ResponseEntity<ApiResponse>(new ApiResponse("userdeleted",200,null));
         return new ApiResponse("UserDeleted",true);
     }
+
 }

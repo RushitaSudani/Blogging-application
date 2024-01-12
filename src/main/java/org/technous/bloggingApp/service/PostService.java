@@ -10,7 +10,7 @@ public interface PostService {
 
     //create
     PostDTO createPost(PostDTO postDTO,int userId,int categoryId);
-    Post updatePost(PostDTO postDTO,int postId);
+    PostDTO updatePost(PostDTO postDTO,int postId);
     void deletePost(int postId);
     List<PostDTO> getAllpost();
     PostDTO getById(int postId);
