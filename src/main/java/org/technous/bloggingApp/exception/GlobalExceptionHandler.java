@@ -1,5 +1,4 @@
 package org.technous.bloggingApp.exception;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -19,7 +18,7 @@ public class GlobalExceptionHandler {
         String message=ex.getMessage();
         ApiResponse apiResponse=new ApiResponse(message,false);
         return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
-       // return null;
+
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleMethodArgsNotValidException(MethodArgumentNotValidException ex)
@@ -33,10 +32,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<Map<String,String>>(resp,HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(HttpMessageNotReadableException.class)
-//    public ResponseEntity<String> handleInvalidInput(HttpMessageNotReadableException e) {
-//        return ResponseEntity.badRequest().body("Invalid request payload.");
-//    }
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<String> handleInvalidInput(HttpMessageNotReadableException e) {
+        return ResponseEntity.badRequest().body("Invalid request payload.");
+    }
 
 
 }

@@ -9,7 +9,6 @@ import org.technous.bloggingApp.repository.CategoryRepository;
 import org.technous.bloggingApp.service.CategoryService;
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Service
 public class CategoryServiceIMPL implements CategoryService {
 
@@ -33,14 +32,14 @@ public class CategoryServiceIMPL implements CategoryService {
         return categoriestoDto(save);
     }
     @Override
-    public CategotyDTO updateCategory(CategotyDTO categotyDTO, int cid) {
+    public CategotyDTO updateCategory(CategotyDTO categotyDTO, int cid) {{{{{
        Categories c1=categoryRepository.findById(cid)
                .orElseThrow(()-> new ResourceNotFoundException("categoryid","categoryid",cid));
        c1.setCategorytitle(categotyDTO.getCategorytitle());
        c1.setCategorydescription(categotyDTO.getCategorydescription());
        Categories save=categoryRepository.save(c1);
        return categoriestoDto(save);
-    }
+    }}}}}
     @Override
     public void deleteCategory(int cid) {
         Categories c1=categoryRepository.findById(cid).orElseThrow(()->new ResourceNotFoundException("categories not found","categoryid",cid));

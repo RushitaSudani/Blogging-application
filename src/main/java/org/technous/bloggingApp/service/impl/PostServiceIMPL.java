@@ -1,9 +1,13 @@
 package org.technous.bloggingApp.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.technous.bloggingApp.dto.PostDTO;
-import org.technous.bloggingApp.dto.UserDTO;
+import org.technous.bloggingApp.dto.PostResponse;
 import org.technous.bloggingApp.exception.ResourceNotFoundException;
 import org.technous.bloggingApp.models.Categories;
 import org.technous.bloggingApp.models.Post;
@@ -61,12 +65,29 @@ public class PostServiceIMPL implements PostService {
         this.postRepository.delete(post);
 
     }
-
     @Override
-    public List<PostDTO> getAllpost() {
-        List<Post> posts=this.postRepository.findAll();
+    public PostResponse getAllpost(int pageNumber, int pageSize,String sortBy,String sortDir) {
+
+        Sort sort = null;
+        if(sortDir.equalsIgnoreCase("asc"))
+        {
+            sort = Sort.by(sortBy).ascending();
+        }
+        else {
+            sort=Sort.by(sortBy).descending();
+        }
+        Pageable p = PageRequest.of(pageNumber,pageSize, sort);
+        Page<Post> pagePost =this.postRepository.findAll(p);
+        List<Post> posts=pagePost.getContent();
         List<PostDTO> postDTOS=posts.stream().map((post)->modelMapper.map(post,PostDTO.class)).collect(Collectors.toList());
-        return postDTOS;
+       PostResponse postResponse=new PostResponse();
+       postResponse.setContent(postDTOS);
+       postResponse.setPageNumber(pagePost.getNumber());
+       postResponse.setPageSize(pagePost.getSize());
+       postResponse.setTotalPages(pagePost.getTotalPages());
+       postResponse.setTotalElements(pagePost.getTotalElements());
+       postResponse.setLastPage(pagePost.isLast());
+        return postResponse;
     }
 
     @Override
@@ -94,7 +115,9 @@ public class PostServiceIMPL implements PostService {
         return postDTOS;
     }
     @Override
-    public List<Post> searchPosts(String keyword) {
-        return null;
+    public List<PostDTO> searchPosts(String keyword) {
+        List<Post> list=this.postRepository.findByTitleContaining(keyword);
+        List<PostDTO> posts=list.stream().map((post) -> this.modelMapper.map(post,PostDTO.class)).collect(Collectors.toList());
+        return posts;
     }
 }

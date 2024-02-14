@@ -13,6 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin("http://localhost:3000")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -25,7 +26,7 @@ public class UserController {
         return new ResponseEntity<>(u1, HttpStatus.CREATED);
     }
     //GET
-    @GetMapping("getalluser")
+    @GetMapping("/getalluser")
     public List<UserDTO> getAllUser()
     {
         List<UserDTO> userDTO=  userService.getAllUser();

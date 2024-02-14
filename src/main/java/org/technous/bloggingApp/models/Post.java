@@ -11,6 +11,10 @@ import org.technous.bloggingApp.models.Categories;
 import org.technous.bloggingApp.models.User;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -40,5 +44,8 @@ public class Post {
 
     @ManyToOne()
     private User user;
+
+    @OneToMany(mappedBy = "post")
+    private Set<Comment> comments=new HashSet<>();
 
 }

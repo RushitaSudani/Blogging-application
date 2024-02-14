@@ -12,15 +12,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/category")
+@CrossOrigin("http://localhost:3000")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-
     @PostMapping("createcategory")
     public ResponseEntity<CategotyDTO> createCategory(@Valid @RequestBody CategotyDTO categotyDTO)
     {
-        CategotyDTO c1=categoryService.craeteCategories(categotyDTO);
-        return new ResponseEntity<CategotyDTO>(c1, HttpStatus.CREATED);
+            CategotyDTO c1=categoryService.craeteCategories(categotyDTO);
+            return new ResponseEntity<CategotyDTO>(c1, HttpStatus.CREATED);
     }
     @PutMapping("updatecategory/{cid}")
     public ResponseEntity<CategotyDTO> updateCategory(@Valid @RequestBody CategotyDTO categotyDTO,@PathVariable("cid") int cid)

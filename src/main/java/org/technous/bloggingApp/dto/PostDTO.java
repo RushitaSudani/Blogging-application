@@ -7,17 +7,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.technous.bloggingApp.models.Categories;
+import org.technous.bloggingApp.models.Comment;
 import org.technous.bloggingApp.models.User;
 
 import java.util.Date;
-
-
+import java.util.HashSet;
+import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class PostDTO {
+
+    private int postid;
     @NotEmpty(message = "Must have Post Title")
     @Size(min = 3,max = 30,message = "Post Title Must Contain 3 to 30 Letters")
     private String title;
@@ -28,5 +30,7 @@ public class PostDTO {
     private Date addedDate;
     private CategotyDTO categories;
     private UserDTO user;
+
+    private Set<CommentDTO> comments=new HashSet<>();
 
 }

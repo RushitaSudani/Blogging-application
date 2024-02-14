@@ -1,6 +1,7 @@
 package org.technous.bloggingApp.service;
 
 import org.technous.bloggingApp.dto.PostDTO;
+import org.technous.bloggingApp.dto.PostResponse;
 import org.technous.bloggingApp.models.Categories;
 import org.technous.bloggingApp.models.Post;
 
@@ -12,7 +13,7 @@ public interface PostService {
     PostDTO createPost(PostDTO postDTO,int userId,int categoryId);
     PostDTO updatePost(PostDTO postDTO,int postId);
     void deletePost(int postId);
-    List<PostDTO> getAllpost();
+    PostResponse getAllpost(int pageNumber, int pageSize,String sortBy,String sortDir);
     PostDTO getById(int postId);
 
     //get all post by categories
@@ -22,7 +23,7 @@ public interface PostService {
     List<PostDTO> getPostByUser(int userId);
 
     //search posts
-    List<Post> searchPosts(String keyword);
+    List<PostDTO> searchPosts(String keyword);
 
 
 }
